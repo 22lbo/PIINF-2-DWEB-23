@@ -8,12 +8,10 @@
     <?php
     $seconde = date("s");
 
-    if ($seconde % 2) {
+    if ($seconde % 2)
         echo $seconde." est impaire";
-    }
-    else {
+    else
         echo $seconde." est paire";
-    }
     ?>
 </body>
 </html>
