@@ -11,7 +11,10 @@
         echo "\n\t\t"."<thead bgcolor =\"lightgray\">";
             echo "\n\t\t\t"."<tr>";
                 for($i=0; $i<13; $i++) {
-                    echo "\n\t\t\t\t"."<th>$i</th>";
+                    if($i == 0)
+                        echo "\n\t\t\t\t"."<th></th>";
+                    else
+                        echo "\n\t\t\t\t"."<th>$i</th>";
                 }
             echo "\n\t\t\t"."</tr>";
         echo "\n\t\t"."</thead>";
