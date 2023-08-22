@@ -22,7 +22,7 @@
             echo "</select><br>";
 
             echo "<br>";
-            echo "<textarea>Message</textarea><br>";
+            echo "<textarea name='messageBox'>Message</textarea><br>";
             echo "<br>";
 
             echo "<input type='radio' name='genre' value='H'>Homme<br>";
