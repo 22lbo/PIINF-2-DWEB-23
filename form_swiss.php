@@ -4,7 +4,7 @@
     <title>Formulaire "Swiss"</title>
     <meta charset="UTF-8">
     <style>
-        html {
+/*        html {
             margin:0px;
             padding:0px;
             width:auto;
@@ -13,20 +13,31 @@
             width:500px;
             margin-left: auto;
             margin-right:auto;
+        }*/
+        h2 {
+            position: relative;
+            left: 5%;
         }
-        .text {
-            display:inline;
-            font-weight:bold;
+        table {
+
         }
-        .boxes{
-            margin-left:20px;
+        th {
+            text-align: left;
+            width: 75px;
+        }
+        td {
+            position: relative;
+            //left: -30px;
+        }
+        .boxesCat{
+            width : 50px;
         }
         .checkbox {
             margin-top: 30px;
         }
         .send_button{
-            color:
-            float:center;
+            position: relative;
+            left: 15%;
             margin-top: 20px;
         }
     </style>
@@ -44,40 +55,46 @@
         "SIA"=>"Xian","XMN"=>"Xiamen","YAO"=>"Yaoundé","ZHR"=>"Zurich","ZTH"=>"Zakynthos");
     $dateD = date("Y-m-d");
     $dateR = date("Y-m-d", strtotime("tomorrow"));
-    echo "<img src='.\logo-swiss-2x.png' alt='SWISS airline logo' height='100px'>";
+    echo "<img src='.\logo-swiss-2x.png' alt='SWISS airline logo' height='80px'>";
     echo "<h2>Réservez votre vol</h2>";
     echo "<form action='result.php' method='post'>";
-        echo "<div class='text'>De</div>";
-        echo "<select class='boxes' name='depart'>";
+    echo "<table>";
+        echo "<tr>";
+        echo "<th class='text'>De</th>";
+        echo "<td><select class='boxes' name='depart'>";
             echo "<option >".depart."</option>";
-        echo "</select>";
-        echo "<div class='text' class='secondRow'>À</div>";
-        echo "<select class='boxes' name='destination'>";
+        echo "</select></td>";
+        echo "<th class='text'>À</th>";
+        echo "<td><select class='boxes' name='destination'>";
             foreach($destinations AS $key => $value) {
                 echo "<option value='$key'>".$value."</option>";
             }
-        echo "</select>";
-
-        echo "<br>";
-        echo "<div class='text'>Vol Aller</div>";
-        echo "<input class='boxes' type='date' name='date_depart' value=$dateD>";
-        echo "<div class='text'class='secondRow'>Vol Retour</div>";
-        echo "<input class='boxes' type='date' name='date_arrivee' value=$dateR>";
+        echo "</select><td/>";
+    echo "</tr>";
+    echo "<tr>";
+        echo "<th class='text'>Vol Aller</th>";
+        echo "<td><input class='boxes' type='date' name='date_depart' value=$dateD></td>";
+        echo "<th class='text'>Vol Retour</th>";
+        echo "<td><input class='boxes' type='date' name='date_arrivee' value=$dateR></td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td></td>";
+    echo "</tr>";
 
         $categories = array("cat_1" => "Adultes","cat_2" => "Enfants","cat_3" => "Bébés");
         foreach($categories AS $key => $value) {
-            echo "<br>";
+            echo "<tr>";
             $passValue = 0;
             if ($key == "cat_1") {
                 $passValue = 1;
             }
-            echo "<div class='text'>$value</div> <input class='boxes' type='text' name='cat_1' value='$passValue'>";
+            echo "<th class='text'>$value</th> <td><input class='boxesCat' type='text' name=$key value='$passValue'><td>";
+            echo "</tr>";
         }
-
+    echo "</table>";
+        echo "<td><input class='checkbox' type='checkbox' name='reserver_siege' value='1'>Réserver votre siège ?<td>";
         echo "<br>";
-        echo "<input class='checkbox' type='checkbox' name='reserver_siege' value='1'>Réserver votre siège ?";
-        echo "<br>";
-        echo "<input class='send_button' type='submit' name='rechercher' value='Rechercher votre Vol'>";
+        echo "<td><input class='send_button' type='submit' name='rechercher' value='Rechercher votre Vol'><td>";
     echo "</form>";
     ?>
 </body>
