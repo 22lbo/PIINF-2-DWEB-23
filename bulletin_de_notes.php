@@ -16,15 +16,12 @@
             text-align: left;
             font-size: 20px;
         }
-        .moyenne {
-            background-color: #ece7be;
-        }
         .moyennes_generales {
-            border-top: 2px solid gray;
             border-bottom: 2px solid gray;
             padding: 10px 0 10px 0;
         }
         .col {
+            background-color: #ece7be;
             text-align: center;
         }
     </style>
@@ -61,12 +58,12 @@
     $competences_info = ($cie_moyenne+$modules_moyenne*4)/5;
 
     //variable qui contient la note du TPI
-    $tpi_note = 2;
+    $tpi_note = 5;
 
     //note globale : moyenne de la note du TPI et la moyenne des competences informatiques
     $note_globale = ($tpi_note+$competences_info)/2;
 
-/*    function abc($arg1, $arg2, $arg3, $arg4) {
+    function abc($arg1, $arg2, $arg3, $arg4) {
         foreach($arg1 AS $arg2 => $arg3) {
             echo "<tr>";
             echo "<td>ICH " . $arg2 . " - " . $arg4[$arg2]. "</td>";
@@ -83,7 +80,7 @@
             echo "<td class='moyenne col' style='color: red'>".round($arg1,1)."</td>";
         else
             echo "<td class='moyenne col'>".round($arg1,1)."</td>";
-    }*/
+    }
 
     echo "<h1>Bulletin ICH</h1>";
     echo "<table>";
@@ -91,72 +88,39 @@
             echo "<th>Modules de compétences en informatique</th>";
             echo "<th>Notes</th>";
         echo "</tr>";
-        //abc($tab_modules['notes'], $key, $val, $tab_modules['nom']);
-            foreach($tab_modules['notes'] AS $key => $moyens) {
-                echo "<tr>";
-                echo "<td>ICH " . $key . " - " . $tab_modules['nom'][$key]. "</td>";
-                if($tab_modules['notes'][$key] < 4)
-                    echo "<td class='moyenne col' style='color: red'>" . round($tab_modules['notes'][$key], 1) . "</td>";
-                else
-                    echo "<td class='moyenne col'>" . round($tab_modules['notes'][$key], 1) . "</td>";
-                echo "</tr>";
-            }
+        abc($tab_modules['notes'], $key, $val, $tab_modules['nom']);
 
         echo "<tr>";
             echo "<th>Cours Interentreprises</th>";
         echo "</tr>";
-        //abc($tab_cie['notes'], $key, $val, $tab_cie['nom']);
-            foreach($tab_cie['notes'] AS $key => $moyens) {
-                echo "<tr>";
-                echo "<td>ICH " . $key . " - " . $tab_cie['nom'][$key]. "</td>";
-                if($tab_cie['notes'][$key] < 4)
-                    echo "<td class='moyenne col' style='color: red'>".$tab_cie['notes'][$key]."</td>";
-                else
-                    echo "<td class='moyenne col'>".$tab_cie['notes'][$key]."</td>";
-                echo "</tr>";
-            }
+        abc($tab_cie['notes'], $key, $val, $tab_cie['nom']);
 
         echo "<tr>";
-            echo "<th>Compentences en informatique</th>"; //moyenne competences informatiques = moyenne modules + moyenne CIE
+            echo "<th>Compentences en informatique</th>";
         echo "<tr>";
             echo "<td>Modules de compétences en informatique</td>";
-            if($modules_moyenne < 4)
-                echo "<td class='moyenne col' style='color: red'>".round($modules_moyenne,1)."</td>";
-            else
-                echo "<td class='moyenne col'>".round($modules_moyenne,1)."</td>";
+            def($modules_moyenne);
         echo "</tr>";
         echo "<tr>";
             echo "<td>Cours Interentreprises</td>";
-            if($cie_moyenne < 4)
-                echo "<td class='moyenne col' style='color: red'>".round($cie_moyenne,1)."</td>";
-            else
-                echo "<td class='moyenne col'>".round($cie_moyenne,1)."</td>";
+            def($cie_moyenne);
         echo "</tr>";
         echo "<tr>";
             echo "<td class='moyennes_generales'>Moyenne</td>";
-            if($competences_info < 4)
-                echo "<td class='moyenne col moyennes_generales' style='color: red'>".round($competences_info,1)."</td>";
-            else
-                echo "<td class='moyenne col moyennes_generales'>".round($competences_info,1)."</td>";
+            def($competences_info);
         echo "</tr>";
 
         echo "<tr>";
-            echo "<th>TPI</th>"; //moyenne TPI = note de TPI
+            echo "<th>TPI</th>";
         echo "</tr>";
         echo "<tr>";
             echo "<td>Note</td>";
-            if($tpi_note < 4)
-                echo "<td class='moyenne col' style='color: red'>".round($tpi_note,1)."</td>";
-            else
-                echo "<td class='moyenne col'>$tpi_note</td>";
+            def($tpi_note);
         echo "</tr>";
 
         echo "<tr>";
-            echo "<th class='moyennes_generales'>Note globale</th>"; //note globale = (moyenne competences informatiques + moyenne TPI) / 2
-            if($note_globale < 4)
-                echo "<td class='moyenne col moyennes_generales' style='color: red'>".round($note_globale,1)."</td>";
-            else
-                echo "<td class='moyenne col moyennes_generales'>".round($note_globale,1)."</td>";
+            echo "<th class='moyennes_generales'>Note globale</th>";
+            def($note_globale);
         echo "</tr>";
 
         echo "<tr>";
