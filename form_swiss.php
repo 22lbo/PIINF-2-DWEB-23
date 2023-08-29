@@ -88,7 +88,7 @@
             if ($key == "cat_1") {
                 $passValue = 1;
             }
-            echo "<th class='text'>$value</th> <td><input class='boxesCat' type='text' name=$key value='$passValue'><td>";
+            echo "<th class='text'>$value</th> <td><input class='boxesCat' type='number' name=$key value='$passValue'><td>";
             echo "</tr>";
         }
     echo "</table>";
