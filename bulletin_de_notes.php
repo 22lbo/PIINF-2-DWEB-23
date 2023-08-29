@@ -34,25 +34,17 @@
 </head>
 <body>
     <?php
-    //tableau des titres des modules theoriques
+    //tableau avec le nom, les notes et les dates des modules et les CIE
     $tab['modules']['nom'] = array("106" => "Interroger, traiter et assurer la maintenance des bases de données","114" => "Mettre en œuvre des systèmes de codification, de compression et d’encryptage",
         "117" => "Mettre en place l’infrastructure informatique et réseau d’une petite entreprise","122" => "Automatiser des procédures à l’aide de scripts","162" => "Analyser et modéliser des données",
         "164" => "Créer des bases de données et y insérer des données","231" => "Appliquer la protection et la sécurité des données","319" => "Concevoir et implémenter des applications","320" => "Programmer orienté objet",
         "322" => "Concevoir et implémenter des interfaces utilisateur","346" => "Concevoir et réaliser des solutions cloud","431" => "Exécuter des mandats de manière autonome dans son propre environnement professionnel");
-
-    //tableau des notes de CCO des modules theoriques
     $tab['modules']['notes'] = array('106' => '6', '117' => '5.5', '122' => '5', '162' => '5', '164' => '5.5', '231' => '5.5', '319' => '4', '431' => '4.5');
-    //tableau des dates des CCO des modules theoriques
     $tab['modules']['dates'] = array('106' => '2023-06-23','117' => '2023-01-19','122' => '2023-06-20','162' => '2023-01-18','164' => '2023-04-05',
         '231' => '2023-06-19','319' => '2023-01-20','431' => '2023-01-16');
-
-    //tableau des titres des CIE
     $tab['cie']['nom'] = array("123" => "Activer les services d´un serveur","187" => "Mettre en service un poste de travail ICT avec le système d’exploitation",
         "216" => "Intégrer les terminaux IoE dans une plateforme existante","293" => "Créer et publier un site Web");
-
-    //tableau des notes de CCO des CIE
     $tab['cie']['notes'] = array('123' => '5.5', '187' => '5.5', '216' => '5.5', '293' => '6');
-    //tableau des dates des CCO des CIE
     $tab['cie']['dates'] = array('123' => '2023-05-08','216' => '2023-03-16', '187' => '2022-09-16','293' => '2022-11-10');
 
     //calcule la moyenne totale des modules
@@ -65,7 +57,7 @@
     //contient une moyenne calculée depuis la moyenne des modules et la moyenne des CIE
     $competences_info = ($cie_moyenne+$modules_moyenne*4)/5;
     //variable qui contient la note du TPI
-    $tpi_note = 3;
+    $tpi_note = 1;
     //note globale : moyenne de la note du TPI et la moyenne des competences informatiques
     $note_globale = ($tpi_note+$competences_info)/2;
 
