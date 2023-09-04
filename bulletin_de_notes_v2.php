@@ -10,25 +10,29 @@
         table, th, td{
             border: 2px solid lightgray;
         }
+        table {
+            background-color: #FFFCF9;
+            width: auto;
+            //margin-bottom: 20px;
+        }
         th {
             background-color: lightgray;
-            width: auto;
             text-align: left;
             font-size: 20px;
         }
-        .dates{
-            border-right: 2px solid lightgray;
-            border-bottom: 2px solid lightgray;
-        }
-        .empty_head {
-            background-color: lightgray;
-        }
-        .moyennes_generales {
-            padding: 10px 0 10px 0;
-        }
-        .col {
+        .note {
             background-color: #ece7be;
             text-align: center;
+        }
+        .moyenne_note {
+            background-color: #ece7be;
+            text-align: center;
+        }
+        .moyenne_gen {
+            text-align: center;
+        }
+        .insuff {
+            background-color: #ff5a5a;
         }
     </style>
 </head>
@@ -76,15 +80,21 @@
     $tab['cie']['modules'][293]['note'] = '6';
     $tab['cie']['modules'][293]['date'] = '2022-11-10';
 
-    $tab['tpi']['desc'] = "Travail Pratique Individuel";
+    $tab['tpi']['desc'] = "TPI";
     $tab['tpi']['ponderation'] = 60;
-    $tab['tpi']['modules'][0]['nom'] = "Moyenne :";
+    $tab['tpi']['modules'][0]['nom'] = "Travail Pratique Individuel";
     $tab['tpi']['modules'][0]['note'] = 1;
-    $tab['tpi']['modules'][0]['date'] = "2026-06-03";
+    $tab['tpi']['modules'][0]['date'] = "2026-??-??";
 
-    $tab['comp_info']['desc'] = "Ensemble des competences en informatique";
+    $tab['comp_info']['desc'] = "Moyenne de l'ensemble des competences en informatique";
     $tab['comp_info']['ponderation'] = 40;
 
+    function insuff ($arg1, $arg2, $arg3) {
+        if($arg1 < 4)
+            echo "<td class='$arg2 $arg3'>".$arg1."</td>";
+        else
+            echo "<td class='$arg2'>".$arg1."</td>";
+    }
 
     echo"<h1>Bulletin ICH</h1>";
     echo "<table>";
@@ -98,25 +108,29 @@
 
             foreach ($domaine['modules'] as $key => $module) {
                 echo "<tr>";
+                if ($abr_domaine != "tpi") {
                     echo "<td>$key</td>";
                     echo "<td>".$module['nom']."</td>";
-                    echo "<td>".$module['date']."</td>";
-                    echo "<td class=' col'>".$module['note']."</td>";
-                echo "</tr>";
-
-                    $nb_notes++;
-                    $somme_notes += $module['note'];
                 }
+                else
+                    echo "<td colspan='2'>".$module['nom']."</td>";
+                echo "<td>".$module['date']."</td>";
+                insuff($module['note'], 'note', 'insuff');
+                echo "</tr>";
+                $nb_notes++;
+                $somme_notes += $module['note'];
+            }
             $moyenne = (round(($somme_notes / $nb_notes)*2)/2);
             echo "<tr>";
             echo "<td colspan=3>Moyenne :</td>";
-            echo "<td>".$moyenne."</td>";
+            insuff($moyenne, 'moyenne_gen', 'insuff');
             $tab[$abr_domaine]['moyenne'] = $moyenne;
             echo "</tr>";
         }
     echo"</table>";
 
     echo "<table>";
+    echo "<tr><th colspan='4'>Moyennes</th></tr>";
         $comp_info = 0;
         foreach ($tab AS $key => $domaine) {
             if ($key == "tpi" || $key == "comp_info")
@@ -125,40 +139,38 @@
             echo "<tr>";
                 echo "<td>".$domaine['desc']."</td>";
                 echo "<td>".$domaine['ponderation']."%</td>";
-                echo "<td>".$domaine['moyenne']."</td>";
+                insuff($domaine['moyenne'], 'moyenne_note', 'insuff');
             echo "</tr>";
             $comp_info += ($tab[$key]['moyenne'] * $tab[$key]['ponderation']);
         }
         echo "<tr>";
-            echo "<td colspan='2'>Moyenne :</td>";
-            $tab['comp_info']['moyenne'] = (round(($comp_info / 100) * 2) / 2);
-            echo "<td>".$tab['comp_info']['moyenne']."</td>";
+            echo "<td colspan='2'>Ensemble des competences en informatique :</td>";
+            $tab['comp_info']['moyenne'] = round(($comp_info / 100), 1);
+            insuff($tab['comp_info']['moyenne'], 'moyenne_gen', 'insuff');
         echo "</tr>";
-    echo "</table>";
 
-     echo "<table>";
     $note_globale = 0;
     foreach ($tab as $key => $domaine) {
         if ($key == "tpi" || $key == "comp_info") {
             echo "<tr>";
-            echo "<td>" . $domaine['desc']."</td>";
-            echo "<td>" . $domaine['ponderation'] . "%</td>";
-            echo "<td>" . $domaine['moyenne'] . "</td>";
+            echo "<td>".$domaine['desc']."</td>";
+            echo "<td>".$domaine['ponderation']."%</td>";
+            insuff($domaine['moyenne'], 'moyenne_note', 'insuff');
             echo "</tr>";
             $note_globale += ($tab[$key]['moyenne'] * $tab[$key]['ponderation']);
         }
     }
     echo "<tr>";
         echo "<td colspan =2>Note globale :</td>";
-        $tab['note_globale'] = (round(($note_globale / 100) * 2) / 2);
-        echo "<td>" . $tab['note_globale'] . "</td>";
+        $tab['note_globale'] = round(($note_globale / 100),1);
+        insuff($tab['note_globale'], 'moyenne_gen', 'insuff');
     echo "</tr>";
     echo "<tr>";
         echo "<td colspan =2>Etat de CFC</td>";
         if($tab['note_globale'] < 4)
-            echo "<td class='col' style='background-color:red'>".$tab['etat_de_cfc'] = "Echec"."</td>";
+            echo "<td class='col' style='background-color:#ff5a5a'>".$tab['etat_de_cfc'] = "Echec"."</td>";
         else
-            echo "<td class='col' style='background-color:green'>".$tab['etat_de_cfc'] = "Réussi"."</td>";
+            echo "<td class='col' style='background-color:#82ff82'>".$tab['etat_de_cfc'] = "Réussi"."</td>";
     echo "<tr>";
 echo "</table>";
 
