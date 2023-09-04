@@ -73,18 +73,18 @@
             echo "<td class='dates'>".$arg1[$arg2]."</td>";
             echo "<td>ICH ".$arg2." - ".$arg4[$arg2]."</td>";
             if($arg5[$arg2] < 4)
-                echo "<td class='moyenne col' style='color: red'>".(round($arg5[$arg2]*2)/2)."</td>";
+                echo "<td class='col' style='color: red'>".(round($arg5[$arg2]*2)/2)."</td>";
             else
-                echo "<td class='moyenne col'>".(round($arg5[$arg2]*2)/2)."</td>";
+                echo "<td class='col'>".(round($arg5[$arg2]*2)/2)."</td>";
             echo "</tr>";
         }
     }
 
     function display_moyennes($arg1) {
         if($arg1 < 4)
-            echo "<td class='moyenne col' style='color: red'>".(round($arg1 * 2 )/2)."</td>";
+            echo "<td class='col' style='color: red'>".(round($arg1 * 2 )/2)."</td>";
         else
-            echo "<td class='moyenne col'>".(round($arg1 * 2 )/2)."</td>";
+            echo "<td class='col'>".(round($arg1 * 2 )/2)."</td>";
     }
     ?>
 
