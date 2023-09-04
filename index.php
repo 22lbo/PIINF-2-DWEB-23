@@ -3,64 +3,75 @@ include("./notes.inc.php");
 
 echo "<table border = 2px>";
 foreach ($tab_notes AS $abr_domaine => $domaine) {
-        echo "<tr><th colspan='4'>".$domaine['desc']."</th></tr>";
+    if ($abr_domaine == "comp_info")
+        break;
+    echo "<tr><th colspan='4'>".$domaine['desc']."</th></tr>";
 
     $nb_notes = 0;
     $somme_notes = 0;
 
-        foreach ($domaine['modules'] AS $key => $module) {
-            echo "<tr>";
-                echo "<td>$key</td>";
-                echo "<td>".$module['desc']."</td>";
-                echo "<td>".$module['date']."</td>";
-                echo "<td>".$module['note']."</td>";
-            echo "</tr>";
-            $nb_notes++;
-            $somme_notes += $module['note'];
-        }
-        $moyenne = $somme_notes / $nb_notes;
+    foreach ($domaine['modules'] AS $key => $module) {
         echo "<tr>";
-            echo "<td colspan=3>Moyenne :</td>";
-            echo "<td>".$moyenne."</td>";
-            $tab_notes[$abr_domaine]['moyenne'] = $moyenne;
+            echo "<td>$key</td>";
+            echo "<td>".$module['desc']."</td>";
+            echo "<td>".$module['date']."</td>";
+            echo "<td>".$module['note']."</td>";
         echo "</tr>";
-        print_r($domaine);
+        $nb_notes++;
+        $somme_notes += $module['note'];
+    }
 
+    $tab_notes[$abr_domaine]['moyenne'] = (round(($somme_notes / $nb_notes) * 2) / 2);
+    echo "<tr>";
+        echo "<td colspan=3>Moyenne :</td>";
+        echo "<td>".$tab_notes[$abr_domaine]['moyenne']."</td>";
+    echo "</tr>";
+    print_r($domaine);
 }
 echo "</table>";
 
 echo "<table border =2px>";
+    $comp_info = 0;
     foreach ($tab_notes as $key => $domaine) {
+        if ($key == "tpi" || $key == "comp_info") {
+            break;
+        }
         echo "<tr>";
-        echo "<td>".$domaine['desc']."</td>";
-        echo "<td>".$domaine['ponderation']."%</td>";
-        echo "<td>".$domaine['moyenne']."</td>";
+            echo "<td>".$domaine['desc']."</td>";
+            echo "<td>".$domaine['ponderation']."%</td>";
+            echo "<td>".$domaine['moyenne']."</td>";
         echo "</tr>";
+        $comp_info += ($tab_notes[$key]['moyenne'] * $tab_notes[$key]['ponderation']);
     }
     echo "<tr>";
-    echo "<td colspan='2'>Moyenne :</td>";
-    $tab_notes['comp_info'] = ($tab_notes['ci']['moyenne'] * $tab_notes['ci']['ponderation'] + $tab_notes['cie']['moyenne'] * $tab_notes['cie']['ponderation']) / 100;
-    echo "<td>" . (round($tab_notes['comp_info'] * 2) / 2) . "</td>";
+    echo "<td colspan='2'>".$tab_notes['comp_info']['desc']."</td>";
+    $tab_notes['comp_info']['moyenne'] = (round(($comp_info / 100) * 2) / 2);
+    echo "<td>".$tab_notes['comp_info']['moyenne']."</td>";
     echo "</tr>";
 echo "</table>";
 
-echo "<table border =2px>";
-foreach ($tab_notes AS $domaine) {
+echo "<table border =2>";
+    $note_globale = 0;
+    foreach ($tab_notes as $key => $domaine) {
+        if ($key == "tpi" || $key == "comp_info") {
+            echo "<tr>";
+                echo "<td>".$domaine['desc']."</td>";
+                echo "<td>".$domaine['ponderation']."%</td>";
+                echo "<td>".$domaine['moyenne']."</td>";
+            echo "</tr>";
+            $note_globale += ($tab_notes[$key]['moyenne'] * $tab_notes[$key]['ponderation']);
+        }
+    }
     echo "<tr>";
-
+        $tab_notes['note_globale'] = (round(($note_globale / 100) * 2) / 2);
+        echo "<td colspan =2>Note globale :</td>";
+        echo "<td>".$tab_notes['note_globale']."</td>";
     echo "</tr>";
-
-}
-echo "<tr>";
-
-echo "</tr>";
 echo "</table>";
 
 echo "<pre>";
 print_r($tab_notes);
 echo "</pre>";
-
-
 
 
 //pas possible de faire des echo sur des tableaux
