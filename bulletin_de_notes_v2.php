@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Results Page</title>
+    <title>Bulletin de notes v2</title>
     <meta charset="UTF-8">
     <style>
+        /** {
+            cursor: url("logo-swiss-2x32.png"), auto;
+        }*/
         body {
             font-family: sans-serif;
         }
-        table, th, td{
+        table, th, td {
             border: 2px solid lightgray;
         }
         table {
             background-color: #FFFCF9;
             width: auto;
-            //margin-bottom: 20px;
+            margin-bottom: 20px;
         }
         th {
             background-color: lightgray;
@@ -170,17 +173,18 @@
     $tab['tpi']['desc'] = "TPI";
     $tab['tpi']['ponderation'] = 60;
     $tab['tpi']['modules'][0]['nom'] = "Travail Pratique Individuel";
-    $tab['tpi']['modules'][0]['note'] = 1;
-    $tab['tpi']['modules'][0]['date'] = "2026-??-??";
+    $tab['tpi']['modules'][0]['note'] = null;
+    $tab['tpi']['modules'][0]['date'] = "";
 
     $tab['comp_info']['desc'] = "Moyenne de l'ensemble des competences en informatique";
     $tab['comp_info']['ponderation'] = 40;
 
-    function insuff ($arg1, $arg2, $arg3) {
-        if($arg1 < 4)
-            echo "<td class='$arg2 $arg3'>".$arg1."</td>";
+
+    function insuff ($array, $class1, $class2) {
+        if($array< 4)
+            echo "<td class='$class1 $class2'>".$array."</td>";
         else
-            echo "<td class='$arg2'>".$arg1."</td>";
+            echo "<td class='$class1'>".$array."</td>";
     }
 
     echo"<h1>Bulletin ICH</h1>";
@@ -209,7 +213,7 @@
             }
             $moyenne = (round(($somme_notes / $nb_notes)*2)/2);
             echo "<tr>";
-            echo "<td colspan=3>Moyenne :</td>";
+            echo "<td colspan=3>Moyenne</td>";
             insuff($moyenne, 'moyenne_gen', 'insuff');
             $tab[$abr_domaine]['moyenne'] = $moyenne;
             echo "</tr>";
@@ -217,8 +221,8 @@
     echo"</table>";
 
     echo "<table>";
-    echo "<tr><th colspan='4'>Moyennes</th></tr>";
         $comp_info = 0;
+        $total_pond = 0;
         foreach ($tab AS $key => $domaine) {
             if ($key == "tpi" || $key == "comp_info")
                 break;
@@ -229,131 +233,44 @@
                 insuff($domaine['moyenne'], 'moyenne_note', 'insuff');
             echo "</tr>";
             $comp_info += ($tab[$key]['moyenne'] * $tab[$key]['ponderation']);
+            $total_pond += $tab[$key]['ponderation'];
         }
         echo "<tr>";
-            echo "<td colspan='2'>Ensemble des competences en informatique :</td>";
-            $tab['comp_info']['moyenne'] = round(($comp_info / 100), 1);
+            echo "<td colspan='2'>Ensemble des competences en informatique</td>";
+            $tab['comp_info']['moyenne'] = round(($comp_info / $total_pond), 1);
             insuff($tab['comp_info']['moyenne'], 'moyenne_gen', 'insuff');
         echo "</tr>";
 
-    $note_globale = 0;
-    foreach ($tab AS $key => $domaine) {
-        if ($key == "tpi" || $key == "comp_info") {
-            echo "<tr>";
-            echo "<td>".$domaine['desc']."</td>";
-            echo "<td>".$domaine['ponderation']."%</td>";
-            insuff($domaine['moyenne'], 'moyenne_note', 'insuff');
-            echo "</tr>";
-            $note_globale += ($tab[$key]['moyenne'] * $tab[$key]['ponderation']);
+        $note_globale = 0;
+        $total_pond = 0;
+        foreach ($tab AS $key => $domaine) {
+            if ($key == "tpi" || $key == "comp_info") {
+                echo "<tr>";
+                echo "<td>".$domaine['desc']."</td>";
+                echo "<td>".$domaine['ponderation']."%</td>";
+                insuff($domaine['moyenne'], 'moyenne_note', 'insuff');
+                echo "</tr>";
+                $note_globale += ($tab[$key]['moyenne'] * $tab[$key]['ponderation']);
+                $total_pond += $tab[$key]['ponderation'];
+            }
         }
-    }
-    echo "<tr>";
-        echo "<td colspan =2>Note globale :</td>";
-        $tab['note_globale'] = round(($note_globale / 100),1);
-        insuff($tab['note_globale'], 'moyenne_gen', 'insuff');
-    echo "</tr>";
-    echo "<tr>";
-        echo "<td colspan =2>Etat de CFC</td>";
-        if($tab['note_globale'] < 4)
-            echo "<td class='col' style='background-color:#ff5a5a'>".$tab['etat_de_cfc'] = "Echec"."</td>";
-        else
-            echo "<td class='col' style='background-color:#82ff82'>".$tab['etat_de_cfc'] = "Réussi"."</td>";
-    echo "<tr>";
-echo "</table>";
+        echo "<tr>";
+            echo "<td colspan =2>Note globale</td>";
+            $tab['note_globale'] = round(($note_globale / $total_pond),1);
+            insuff($tab['note_globale'], 'moyenne_gen', 'insuff');
+        echo "</tr>";
+        echo "<tr>";
+            echo "<td colspan =2>Etat de CFC</td>";
+            if($tab['note_globale'] < 4)
+                echo "<td style='background-color:#ff5a5a'>".$tab['etat_de_cfc'] = "Echec"."</td>";
+            else
+                echo "<td style='background-color:#82ff82'>".$tab['etat_de_cfc'] = "Réussi"."</td>";
+        echo "<tr>";
+    echo "</table>";
 
     echo "<pre>";
     print_r($tab);
     echo "</pre>";
-
-    /*I felt a funeral in my brain
-    and mourners to and fro
-    kept treading, treading till it seemed
-    that sense was breaking through
-
-    and when they all were seated
-    a service like a drum
-    kept beating beating till I thought
-    my mind was going numb
-
-    and then I heard them lift a box
-    and creak across my soul
-    with those same boots of lead again
-    then space began to toll
-
-    as all the heavens were a bell
-    and being but an ear
-    and I and silence some strange race
-    wrecked solitary here
-
-    and then a plank in reason broke
-    and I dropped down and down
-    and hit a world at every plunge
-    and finished knowing then*/
-
-    /*hope is the thing with feathers
-    that perches on the soul
-    and sings the tune without the words
-    and never stops at all
-
-    and sweetest in the gale is heard
-    and sore must be the storm
-    that could abash that little bird
-    that kept so many warm
-
-    I've heard it in the chillest lands
-    and on the strangest sea
-    yet never in extremity
-    it asked a crumb of me*/
-
-    /*I measure every grief I meet
-    with narrow probing eyes
-    I wonder if it weighs like mine
-    or has an easier size
-
-    I wonder if they bore it long
-    or did it just begin
-    I could not tell the date of mine
-    it feels so old a pain
-
-    I wonder if it hurts to live
-    and if they have to try
-    and whether could they choose between
-    it would not be to die
-
-    I note that some gone patient long
-    at length renew their smile
-    an imitation of a light
-    that has so little oil
-
-    I wonder if when years have passed
-    some thousands on the harm
-    that hurt them early such a lapse
-    could give them any balm
-
-    or would they go on aching still
-    through centuries of nerve
-    enlightened to a larger pain
-    in contrast with the love
-
-    the grieved are many i am told
-    there is the various cause
-    death is but one and comes but once
-    and only nails the eyes
-
-    there's grief of want and grief of cold
-    a sort they call despair
-    there's banishment from native eyes
-    in sight of native air
-
-    and though I may not guess the kind
-    correctly yet to me
-    a piercing comfort it affords
-    in passing calvary
-
-    to note that fashions of the cross
-    and how they're mostly worn
-    still fascinated to presume
-    that some are like my own*/
 ?>
 </body>
 </html>
