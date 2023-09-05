@@ -11,18 +11,18 @@ session_start();
 <pre>
 <?php
 require_once("carte.inc.php");
-
+$table = 0;
 if (isset($_POST['save'])) {
     //print_r($_POST);
 
     $num_starter = $_POST['starter'];
     $num_main = $_POST['main'];
     $num_desert = $_POST['desert'];
-
+    $table = $_POST['table'];
 
     $client = array("starter" => $num_starter, "main" => $num_main, "desert" => $num_desert);
 
-    $_SESSION['commande'][] = $client;
+    $_SESSION['commande'][$table][] = $client;
 
     print_r($_SESSION);
 }
@@ -30,7 +30,10 @@ if (isset($_POST['save'])) {
 </pre>
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method='post'>
     <h1>Passez votre commande</h1>
-    
+
+    <h3>Table</h3>
+    <input type='number' name='table' min="1" value="<?php echo $table;?>">
+
     <h3>Entrée</h3>
     <select name='starter'>
         <?php
