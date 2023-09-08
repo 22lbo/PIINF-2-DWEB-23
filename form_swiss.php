@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -43,59 +46,89 @@
     </style>
 </head>
 <body>
+<?php
+include("airport.inc.php");
+include("category.inc.php");
+define("depart", "Genève");
+$dateA = date("Y-m-d");
+$dateR = date("Y-m-d", strtotime("tomorrow"));
+$status = 0;
+if ($_SESSION) {
+    $status++;
+}
+?>
+<img src='.\logo-swiss-2x.png' alt='SWISS airline logo' height='80px'>
+<form action='result.php' method='post'>
     <?php
-    define("depart", "Genève");
-    $destinations = array("ADL"=>"Adélaïde","ALC"=>"Alicante","ATH"=>"Athenes","ATL"=>"Atlanta","BUE"=>"Buenos Aires","BSL"=>"Bâle","BCN"=>"Barcelone","BKK"=>"Bangkok",
-        "CPH"=>"Copenhague","CLE"=>"Cleveland","CPT"=>"Le Cap","DBV"=>"Dubrovnik","DUB"=>"Dublin","DEN"=>"Denver","EDI"=>"Edimbourg","FLR"=>"Florence",
-        "FUE"=>"Fuerteventura","GOT"=>"Goteborg","GVA"=>"Genève","GLA"=>"Glasgow","HAM"=>"Hambourg","HEL"=>"Helsinki","HNL"=>"Honolulu","HKG"=>"Hong Kong","IBZ"=>"Ibiza",
-        "IND"=>"Indianapolis","INN"=>"Innsbruck","JNB"=>"Johannesburg","KWI"=>"Kuwait","IEV"=>"Kiev","LON"=>"Londres","LAX"=>"Los Angeles","LIS"=>"Lisbonne",
-        "MOW"=>"Moscou","MLA"=>"Malte","MUC"=>"Munich","NYC"=>"New York","NBO"=>"Nairobi","NAS"=>"Nassau","ORL"=>"Orlando","OSA"=>"Osaka","ODS"=>"Odessa","PAR"=>"Paris",
-        "PRG"=>"Prague","YQB"=>"Quebec","ROM"=>"Rome","RIO"=>"Rio de Janeiro","REK"=>"Reykjavik","SFO"=>"San Francisco","SOF"=>"Sofia","SYD"=>"Sydney","TCI"=>"Ténérife",
-        "TYO"=>"Tokyo","YTO"=>"Toronto","UME"=>"Umea","VCE"=>"Venise","YVR"=>"Vancouver","WAM"=>"Varsovie","WAS"=>"Washington","WLG"=>"Wellington","WRO"=>"Wroclaw",
-        "SIA"=>"Xian","XMN"=>"Xiamen","YAO"=>"Yaoundé","ZHR"=>"Zurich","ZTH"=>"Zakynthos");
-    $dateD = date("Y-m-d");
-    $dateR = date("Y-m-d", strtotime("tomorrow"));
-    echo "<img src='.\logo-swiss-2x.png' alt='SWISS airline logo' height='80px'>";
-    echo "<h2>Réservez votre vol</h2>";
-    echo "<form action='result.php' method='post'>";
-    echo "<table>";
+    //echo $status;
+        if ($status == 0)
+            echo "<h2>Réservez votre vol aller</h2>";
+        else
+            echo "<h2>Réservez votre vol retour</h2>";
+
+        echo "<table>";
         echo "<tr>";
         echo "<th class='text'>De</th>";
         echo "<td><select class='boxes' name='depart'>";
-            echo "<option >".depart."</option>";
+        if ($status == 0) {
+            echo "<option value='GVA'>" . depart . "</option>";
+            foreach ($aeroports as $key => $value) {
+                echo "<option value='$key'>" . $value . "</option>";
+            }
+        }
+        else
+            foreach($aeroports as $key => $value) {
+                if ($key == $_SESSION['vols'][0]['destination']){
+                    echo "<option value='$key'>".$value."</option>";
+                }
+            }
         echo "</select></td>";
         echo "<th class='text'>À</th>";
         echo "<td><select class='boxes' name='destination'>";
-            foreach($destinations AS $key => $value) {
-                echo "<option value='$key'>".$value."</option>";
+        if ($status == 0) {
+            foreach ($aeroports as $key => $value) {
+                echo "<option value='$key'>" . $value . "</option>";
             }
-        echo "</select><td/>";
-    echo "</tr>";
-    echo "<tr>";
-        echo "<th class='text'>Vol Aller</th>";
-        echo "<td><input class='boxes' type='date' name='date_depart' value=$dateD></td>";
-        echo "<th class='text'>Vol Retour</th>";
-        echo "<td><input class='boxes' type='date' name='date_arrivee' value=$dateR></td>";
-    echo "</tr>";
-    echo "<tr>";
-    echo "<td></td>";
-    echo "</tr>";
+        }
+        else
+            foreach($aeroports as $key => $value) {
+                if ($key == $_SESSION['vols'][0]['depart']){
+                    echo "<option value='$key'>".$value."</option>";
+                }
+            }
 
-        $categories = array("cat_1" => "Adultes","cat_2" => "Enfants","cat_3" => "Bébés");
-        foreach($categories AS $key => $value) {
+        echo "</select><td/>";
+        echo "</tr>";
+        echo "<tr>";
+        if ($status == 0) {
+            echo "<th class='text'>Date Aller</th>";
+            echo "<td><input class='boxes' type='date' name='date' value=$dateA></td>";
+        }
+        else {
+            echo "<th class='text'>Date Retour</th>";
+            echo "<td><input class='boxes' type='date' name='date' value=$dateR></td>";
+        }
+
+        echo "</tr>";
+        foreach ($categories as $key => $value) {
             echo "<tr>";
-            $passValue = 0;
-            if ($key == "cat_1") {
-                $passValue = 1;
+            if ($status == 0) {
+                $catValue = 0;
+                if ($key == "adultes") {
+                    $catValue = 1;
+                }
+                echo "<th class='text'>$value</th> <td><input class='boxesCat' type='number' name=$key value='$catValue'><td>";
             }
-            echo "<th class='text'>$value</th> <td><input class='boxesCat' type='number' name=$key value='$passValue'><td>";
+            else {
+                echo "<th class='text'>$value</th> <td><input class='boxesCat' type='number' name=$key value=".$_SESSION['vols'][0][$key]."><td>";
+            }
             echo "</tr>";
         }
-    echo "</table>";
+        echo "</table>";
         echo "<td><input class='checkbox' type='checkbox' name='reserver_siege' value='1'>Réserver votre siège ?<td>";
         echo "<br>";
         echo "<td><input class='send_button' type='submit' name='rechercher' value='Rechercher votre Vol'><td>";
-    echo "</form>";
     ?>
+</form>
 </body>
 </html>
