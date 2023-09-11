@@ -78,7 +78,7 @@ if ($_SESSION) {
         }
         else
             foreach($aeroports as $key => $value) {
-                if ($key == $_SESSION['vols'][0]['destination']){
+                if ($key == $_SESSION['vols'][0]['id_destination']){
                     echo "<option value='$key'>".$value."</option>";
                 }
             }
@@ -92,7 +92,7 @@ if ($_SESSION) {
         }
         else
             foreach($aeroports as $key => $value) {
-                if ($key == $_SESSION['vols'][0]['depart']){
+                if ($key == $_SESSION['vols'][0]['id_depart']){
                     echo "<option value='$key'>".$value."</option>";
                 }
             }
