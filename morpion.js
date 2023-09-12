@@ -1,6 +1,10 @@
 var turn = 0;
 var full_cells = 0;
-var gameOver = false
+var table_full = false
+var win_condition = false
+var player0_win = false
+var player1_win = false
+var winner = ""
 $(function(){
     $('td').click(function () {
         if ($(this).hasClass('symbole_0') || $(this).hasClass('symbole_1'))
@@ -16,18 +20,67 @@ $(function(){
         }
         if ($(this).hasClass('symbole_0') || $(this).hasClass('symbole_1'))
             full_cells++
-        if (full_cells == 9) {
-            alert('no more legal cells available')
-            gameOver = true
+
+        //checks win condition for the class "symbole_0"
+        //checks horizontally
+        if($('tr:first-child>td:first-child').hasClass('symbole_0') && $('tr:first-child>td:first-child+td').hasClass('symbole_0') && $('tr:first-child>td:last-child').hasClass('symbole_0'))
+            player0_win = true
+        if($('tr:first-child+tr>td:first-child').hasClass('symbole_0') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_0') && $('tr:first-child+tr>td:last-child').hasClass('symbole_0'))
+            player0_win = true
+        if($('tr:last-child>td:first-child').hasClass('symbole_0') && $('tr:last-child>td:first-child+td').hasClass('symbole_0') && $('tr:last-child>td:last-child').hasClass('symbole_0'))
+            player0_win = true
+        //checks vertically
+        if($('tr:first-child>td:first-child').hasClass('symbole_0') && $('tr:first-child+tr>td:first-child').hasClass('symbole_0') && $('tr:last-child>td:first-child').hasClass('symbole_0'))
+            player0_win = true
+        if($('tr:first-child>td:first-child+td').hasClass('symbole_0') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_0') && $('tr:last-child>td:first-child+td').hasClass('symbole_0'))
+            player0_win = true
+        if($('tr:first-child>td:last-child').hasClass('symbole_0') && $('tr:first-child+tr>td:last-child').hasClass('symbole_0') && $('tr:last-child>td:last-child').hasClass('symbole_0'))
+            player0_win = true
+        //checks diagonally
+        if($('tr:first-child>td:first-child').hasClass('symbole_0') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_0') && $('tr:last-child>td:last-child').hasClass('symbole_0'))
+            player0_win = true
+        if($('tr:first-child>td:last-child').hasClass('symbole_0') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_0') && $('tr:last-child>td:first-child').hasClass('symbole_0'))
+            player0_win = true
+
+        //checks win condition for the class "symbole_1"
+        //checks horizontally
+        if($('tr:first-child>td:first-child').hasClass('symbole_1') && $('tr:first-child>td:first-child+td').hasClass('symbole_1') && $('tr:first-child>td:last-child').hasClass('symbole_1'))
+            player1_win = true
+        if($('tr:first-child+tr>td:first-child').hasClass('symbole_1') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_1') && $('tr:first-child+tr>td:last-child').hasClass('symbole_1'))
+            player1_win = true
+        if($('tr:last-child>td:first-child').hasClass('symbole_1') && $('tr:last-child>td:first-child+td').hasClass('symbole_1') && $('tr:last-child>td:last-child').hasClass('symbole_1'))
+            player1_win = true
+        //checks vertically
+        if($('tr:first-child>td:first-child').hasClass('symbole_1') && $('tr:first-child+tr>td:first-child').hasClass('symbole_1') && $('tr:last-child>td:first-child').hasClass('symbole_1'))
+            player1_win = true
+        if($('tr:first-child>td:first-child+td').hasClass('symbole_1') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_1') && $('tr:last-child>td:first-child+td').hasClass('symbole_1'))
+            player1_win = true
+        if($('tr:first-child>td:last-child').hasClass('symbole_1') && $('tr:first-child+tr>td:last-child').hasClass('symbole_1') && $('tr:last-child>td:last-child').hasClass('symbole_1'))
+            player1_win = true
+        //checks diagonally
+        if($('tr:first-child>td:first-child').hasClass('symbole_1') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_1') && $('tr:last-child>td:last-child').hasClass('symbole_1'))
+            player1_win = true
+        if($('tr:first-child>td:last-child').hasClass('symbole_1') && $('tr:first-child+tr>td:first-child+td').hasClass('symbole_1') && $('tr:last-child>td:first-child').hasClass('symbole_1'))
+            player1_win = true
+
+        if (player0_win == true) {
+            win_condition = true
+            winner = "Player O has won"
         }
-        if(gameOver == true) {
-            alert('the game is over')
-            $('td').each(function(){
-                if ($('td').hasClass('symbole_0'))
-                    $('td').removeClass('symbole_0')
-                else
-                    $('td').removeClass('symbole_1')
-            })
+        if (player1_win == true) {
+            win_condition = true
+            winner = "Player X has won"
+        }
+
+        if (full_cells == 9)
+            table_full = true
+
+        if(table_full == true || win_condition == true) {
+            if(win_condition == true)
+                alert(winner)
+            if(table_full == true && win_condition == false)
+                alert('the game is tied')
+            location.reload()
         }
     })
 })
