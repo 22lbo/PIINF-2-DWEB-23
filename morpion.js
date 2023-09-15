@@ -8,7 +8,7 @@ var winner = ""
 $(function(){
     $('td').click(function () {
         if ($(this).hasClass('symbole_0') || $(this).hasClass('symbole_1'))
-            alert('illegal cell')
+            alert('Illegal cell')
         else {
             if (turn == 0) {
                 $(this).addClass('symbole_0')
@@ -79,7 +79,7 @@ $(function(){
             if(win_condition == true)
                 alert(winner)
             if(table_full == true && win_condition == false)
-                alert('the game is tied')
+                alert('The game is tied')
             location.reload()
         }
     })
