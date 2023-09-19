@@ -56,28 +56,3 @@ $(function(){
         }
     });
 })
-
-/*i felt a funeral in my brain
-* and mourners to and fro
-* kept treading treading till is seemed
-* that sense was breaking through
-*
-* and when they all were seated
-* a service like a drumb
-* kept beating beating till i though
-* my mind was going numb
-*
-* i heard them lift a box
-* and creack across my soul
-* with those same boots of lead again
-* then space began to toll
-*
-* as all the heavens were a bell
-* and being but an ear
-* and i and silence some strange race
-* wrecked solitary here
-*
-* and then a plank in reason broke
-* and i dropped down and down
-* and hit a world at every plunge
-* and finished knowing then*/
