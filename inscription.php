@@ -3,8 +3,15 @@
     <head>
         <title>Exercice - Formulaire Bootstrap</title>
         <meta charset="UTF-8">
+        <!--Bootstrap CSS-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!--JQuery-->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+        <!--JQuery validate-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     </head>
     <body>
         <div class="container">
@@ -59,7 +66,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm-offset-8 col-sm-2">
+                            <div class="col-sm-2 col-sm-offset-8">
                                 <input type="submit" class="form-control btn btn-primary submit" id="submit_conf" value="S'inscrire">
                             </div>
                             <div class="col-sm-2">
@@ -71,5 +78,6 @@
                 </div>
             </div>
         </div>
+    <script src="inscription.js"></script>
     </body>
 </html>
