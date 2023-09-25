@@ -9,13 +9,6 @@ $(function() {
 
     $('a').addClass('ttp_hover')
 
-    /*$('a').each(function(){
-        if (ex_num > 12)
-            ex_num = 'morpion'
-        $('a:contains('+ex_num+')').attr({description: 'Exercice '+ex_num, dificult: Math.floor(Math.random() * (Math.floor(4) - Math.ceil(1) + 1)) + Math.ceil(1)})
-        ex_num++
-    })*/
-
     $("a:contains('01')").attr({description: 'Créer un fichier qui affiché "Hello World"', dificult: '1'})
     $("a:contains('02')").attr({description: 'Remplacer le contenu de une liste "li"', dificult: '1'})
     $("a:contains('03')").attr({description: 'Afficher le nombre de liens sur la page', dificult: '1'})
@@ -28,21 +21,6 @@ $(function() {
     $("a:contains('10')").attr({description: 'Changer la taille de une image en fonction des événements de la souris', dificult: '2'})
     $("a:contains('12')").attr({description: 'Ajouter une bordure autour de un champ texte et un label', dificult: '1'})
     $("a:contains('morpion')").attr({description: 'Créer un jeu de Morpion', dificult: '4'})
-
-/*    $('a').each(function(){
-        $.each(this.attributes, function () {
-            if(this.specified) {
-                tab.push(this.value)
-            }
-        })
-    })*/
-
-    //Changes the value off desc_index and diff_index whenever a mouseover event happens, if the links are hovered in sequence then it works, otherwise it stops making sense. This method is not viable
-    /*$('td a').on('mouseover', function () {
-        $('.ttp_hover:hover').attr({title: tab[desc_index] + ', dificulte : ' + tab[diff_index]})
-        desc_index += 4
-        diff_index += 4
-    })*/
 
     $('td a').on('mouseover', function() {
         $(this).each(function(){
@@ -57,8 +35,3 @@ $(function() {
     })
     console.log(tab)
 })
-/*add infobulles to the menu - the attribute 'title' does this.
-* its also possible to make a tooltip on hover <--- they're kind of complicated actually*/
-
-//https://stackoverflow.com/questions/14645806/get-all-attributes-of-an-element-using-jquery
-//                      '-----------> look at this
