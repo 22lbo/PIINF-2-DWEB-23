@@ -1,12 +1,4 @@
 $(function() {
-    var ex_num = 1
-    var dif_num = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(1) + 1)) + Math.ceil(1);
-    var tab = []
-    var desc_index = 2
-    var diff_index = 3
-    var odd_number = 0
-    var rotation = 0
-
     $('a').addClass('ttp_hover')
 
     $("a:contains('01')").attr({description: 'Créer un fichier qui affiché "Hello World"', dificult: '1'})
@@ -30,8 +22,7 @@ $(function() {
                 if(this.name == 'dificult')
                     diff_value = this.value
             })
-            $('.ttp_hover:hover').attr({title: 'Description : ' + desc_value + ', Dificulte : ' + diff_value})
+            $('.ttp_hover:hover').attr({title: 'Description : ' + desc_value + ', Difficulte : ' + diff_value})
         })
     })
-    console.log(tab)
 })
