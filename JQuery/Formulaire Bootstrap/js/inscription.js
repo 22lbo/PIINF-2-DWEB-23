@@ -53,6 +53,15 @@ $(function(){
                 required: "Veuillez saisir une deuxième fois votre mot de passe",
                 equalTo: "Les mots de passe ne sont pas identiques"
             }
+        },
+        submitHandler: function(form){
+            console.log("formulaire envoyé");
+            $.post(
+                "inscription.json.php",
+                {
+                    nom_per:$("#nom_per").val()
+                }
+            )
         }
     });
 })
