@@ -1,7 +1,7 @@
 $(function(){
     $.validator.addMethod("PWCHECK",
         function(value,element) {
-            if (/^(?=.*?[A-Z]{1,})(?=(.*[a-z]){1,})(?=(.*[0-9]){1,})(?=(.*[$@$!%*?&]){1,}).{8,}$/.test(value)) {
+            if (/^(?=.*?[A-Z]{1,})(?=(.*[a-z]){1,})(?=(.*[0-9]){1,})(?=(.*[$@$!%*?&+]){1,}).{8,}$/.test(value)) {
                 return true;
             } else {
                 return false;
@@ -47,7 +47,7 @@ $(function(){
             },
             password: {
                 required: "Veuillez saisir votre mot de passe",
-                PWCHECK: "Votre mot de passe est trop court"
+                PWCHECK: "Le mot de passe doit comporter au minimum 8 caractères, dont une minuscule, une majuscule, un chiffre et un caractère spécial."
             },
             password_conf: {
                 required: "Veuillez saisir une deuxième fois votre mot de passe",

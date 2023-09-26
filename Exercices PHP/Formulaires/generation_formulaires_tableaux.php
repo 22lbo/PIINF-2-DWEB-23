@@ -14,7 +14,7 @@
     $carte[] =  "Filet de sandre meunière";
     $carte[] =  "Fondue";
 
-    echo "<form action='result.php' method='post'>";
+    echo "<form action='../result.php' method='post'>";
 
         echo "<select name='repas'>";
             foreach($carte AS $key => $plat) {

@@ -58,7 +58,7 @@ if ($_SESSION) {
 }
 ?>
 <img src='.\logo-swiss-2x.png' alt='SWISS airline logo' height='80px'>
-<form action='result.php' method='post'>
+<form action='../result.php' method='post'>
     <?php
     //echo $status;
         if ($status == 0)

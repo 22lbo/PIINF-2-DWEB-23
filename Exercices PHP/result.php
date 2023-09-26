@@ -6,8 +6,8 @@
 </head>
 <body>
 <?php
-include("airport.inc.php");
-include("category.inc.php");
+include("Sessions/airport.inc.php");
+include("Sessions/category.inc.php");
 
 echo "<pre>";
 if (isset($_POST['rechercher'])) {
@@ -35,10 +35,10 @@ if (isset($_POST['rechercher'])) {
 echo "</pre>";
 foreach ($_SESSION AS $vols) {
     if (!array_key_exists(1, $vols))
-        echo "<a href='form_swiss.php'>Réserver un vol retour</a>";
+        echo "<a href='Sessions/form_swiss.php'>Réserver un vol retour</a>";
     else {
         session_destroy();
-        echo "<a href='form_swiss.php'>Autre voyage</a>";
+        echo "<a href='Sessions/form_swiss.php'>Autre voyage</a>";
     }
 }
 ?>

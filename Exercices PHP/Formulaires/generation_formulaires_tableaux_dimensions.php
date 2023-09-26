@@ -8,7 +8,7 @@
     <?php
     require_once("carte.inc.php");
 
-    echo "<form action='result.php' method='post'>";
+    echo "<form action='../result.php' method='post'>";
         echo "<h1>Passez votre commande</h1>";
         echo "<h3>Entrée</h3>";
         echo "<select name='starter'>";
