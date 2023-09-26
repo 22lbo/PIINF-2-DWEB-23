@@ -57,9 +57,14 @@ $(function(){
         submitHandler: function(form){
             console.log("formulaire envoyé");
             $.post(
-                "inscription.json.php",
+                "./json/inscription.json.php?_="+Date.now(),
                 {
-                    nom_per:$("#nom_per").val()
+                    nom_per:$("#nom_per").val(),
+                    prenom_per:$("#prenom_per").val(),
+                    email_per:$("#email_per").val(),
+                    password:$("#password").val(),
+                    password_conf:$("#password_conf").val(),
+                    news_letter:$("#news_letter").val()
                 }
             )
         }

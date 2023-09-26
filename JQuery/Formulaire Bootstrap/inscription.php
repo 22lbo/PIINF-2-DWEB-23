@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <form id="inscription_form" action="check.php" method="post">
+                    <form id="inscription_form">
                         <div class="form-group row">
                             <label for="nom_per" class="col-sm-2 col-form-label">Nom</label>
                             <div class="col-sm-10">
@@ -78,6 +78,6 @@
                 </div>
             </div>
         </div>
-    <script src="inscription.js"></script>
+    <script src="js/inscription.js"></script>
     </body>
 </html>
