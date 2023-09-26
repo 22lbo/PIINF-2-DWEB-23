@@ -11,7 +11,7 @@ session_start();
 <pre>
 <?php
 //commentary for second commit
-require_once("carte.inc.php");
+require_once("../Formulaires/carte.inc.php");
 $table = 0;
 if (isset($_POST['save'])) {
     //print_r($_POST);

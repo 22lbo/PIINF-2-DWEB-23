@@ -8,7 +8,7 @@
     <?php
         $tabFeedback = array(1 => "Insuffisant", 2 => "Suffisant", 3 => "Bien", 4 => "Très bien");
 
-        echo "<form action='result.php' method='post'>"; //the get method doesn't post anything on the results page
+        echo "<form action='check_des_formulaires.php' method='post'>"; //the get method doesn't post anything on the results page
             echo "<input type='text' name='name'> Nom d'utilisateur<br>";
             echo "<input type='email' name='email'> E-mail<br>";
 
