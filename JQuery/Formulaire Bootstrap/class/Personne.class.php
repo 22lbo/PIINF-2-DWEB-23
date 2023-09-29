@@ -101,11 +101,23 @@ Class Personne {
                 $user_browser_ip = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
                 $_SESSION['login_string'] = password_hash($tab['password_per'].$user_browser_ip, PASSWORD_DEFAULT);
                 $_SESSION['email'] = $email;
-                echo "ok";
             } else {
-                echo "ko";
+                echo false;
             }
         } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function check_connect(){
+        if(isset($_SESSION['id'],$_SESSION['email'],$_SESSION['login_string'])) {
+            $user_browser_ip = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
+            if(password_verify($this->get_password().$user_browser_ip,$_SESSION['login_string'])){
+                return true;
+            } else{
+                return false;
+            }
+        } else{
             return false;
         }
     }

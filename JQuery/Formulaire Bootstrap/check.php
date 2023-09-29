@@ -2,12 +2,19 @@
 <?php
 session_start();
 require("./config/config.inc.php");
-require("./class/Personne.class.php");
+require(WAY."/includes/autoload.inc.php");
 
-$per = new Personne(2);
+$per = new Personne(1);
 echo $per;
 
 echo $per->check_login("rasmus.lerdorf@php.net","Mot_de_passe");
-print_r($_SESSION)
+
+print_r($_SESSION);
+if($per->check_connect()){
+    echo "Logué";
+} else{
+    echo "pas logué";
+}
 ?>
+    <a href="controle_login.php">Logué ?</a>
 </pre>

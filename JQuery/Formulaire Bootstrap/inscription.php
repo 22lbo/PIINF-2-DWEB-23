@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <title>Exercice - Formulaire Bootstrap</title>
-        <meta charset="UTF-8">
-        <!--Bootstrap CSS-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <!--JQuery-->
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-
-        <!--JQuery validate-->
-        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-    </head>
+<?php
+require("config/config.inc.php");
+require(WAY."/includes/head.inc.php");
+?>
     <body>
         <div class="container">
             <div class="row">
@@ -27,7 +16,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <form id="inscription_form">
+                    <form id="inscription_form" action="check.php" method="post">
                         <div class="form-group row">
                             <label for="nom_per" class="col-sm-2 col-form-label">Nom</label>
                             <div class="col-sm-10">
