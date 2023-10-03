@@ -1,15 +1,9 @@
 <?php
 session_start();
 require("./config/config.inc.php");
-require_once(WAY."/includes/autoload.inc.php");
-$per = new Personne($_SESSION['id']);
-if(!$per->check_connect()){
-    session_destroy();
-    header('Location: '.URL.'/tutos/login.php');
-    exit;
-}
-
+require(WAY."/includes/secure.inc.php");
 require_once(WAY."/includes/head.inc.php");
+session_destroy();
 ?>
 <div class="row">
     <div class="header">

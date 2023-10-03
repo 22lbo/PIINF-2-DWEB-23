@@ -67,6 +67,7 @@ require(WAY."/includes/head.inc.php");
                 </div>
             </div>
         </div>
+    <script src="js/functions.js"></script>
     <script src="js/inscription.js"></script>
     </body>
 </html>
