@@ -30,7 +30,7 @@ $(function(){
             password_conf:{
                 required: true,
                 equalTo: '#password'
-            }
+            },
         },
         messages:{
             nom_per: {
@@ -52,10 +52,17 @@ $(function(){
             password_conf: {
                 required: "Veuillez saisir une deuxième fois votre mot de passe",
                 equalTo: "Les mots de passe ne sont pas identiques"
-            }
+            },
         },
         submitHandler: function(form){
             console.log("formulaire envoyé");
+
+            if($('#news_letter').is(':checked')) {
+                var news_letter = 1;
+            } else{
+                var news_letter = 0;
+            }
+
             $.post(
                 "./json/inscription.json.php?_="+Date.now(),
                 {
@@ -63,8 +70,12 @@ $(function(){
                     prenom_per:$("#prenom_per").val(),
                     email_per:$("#email_per").val(),
                     password:$("#password").val(),
-                    password_conf:$("#password_conf").val(),
-                    news_letter:$("#news_letter").val()
+                    news_letter_per:news_letter
+                },
+                function result(data,status){
+                    $("#alert.message").html(data.message.texte);
+                    $("#alert").addClass("alert-"+data.message.type);
+                    $("#alert").css("display","block");
                 }
             )
         }
