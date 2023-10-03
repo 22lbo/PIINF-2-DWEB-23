@@ -15,10 +15,9 @@ if($per->check_email($_POST['email_per'])) {
     $per->set_id($id);
     if($per->init()){
         $tab['reponse'] = true;
-        $tab['message']['texte'] = "Bienvenue, utilisez les identifiants créés pour vous connecter !";
+        $tab['message']['texte'] = "Bienvenue, utilisez les identifiants créés pour vous connecter ! "."<br><a href='login.php'>Connexion</a>";
         $tab['message']['type'] = "succes";
     }
 }
 echo json_encode($tab);
-//echo json_encode($_POST);
 ?>

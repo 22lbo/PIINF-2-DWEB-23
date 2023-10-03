@@ -7,9 +7,10 @@
     <!--Global CSS Stylesheet-->
     <link rel="stylesheet" href="<?php echo URL; ?>../css/global.css">
 
-    <!--Bootstrap CSS-->
+    <!--Bootstrap CSS and Script-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!--JQuery-->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

@@ -73,7 +73,7 @@ $(function(){
                     news_letter_per:news_letter
                 },
                 function result(data,status){
-                    $("#alert.message").html(data.message.texte);
+                    $("#alert .message").html(data.message.texte);
                     $("#alert").addClass("alert-"+data.message.type);
                     $("#alert").css("display","block");
                 }
